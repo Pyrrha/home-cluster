@@ -12,7 +12,7 @@ spec:
     namespace: argocd
     name: in-cluster
   source:
-    repoURL: git@github.com/Pyrrha/home-cluster.git
+    repoURL: git@github.com:Pyrrha/home-cluster.git
     path: ./argocd-config/applications/
     directory:
       recurse: true

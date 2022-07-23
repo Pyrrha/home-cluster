@@ -13,7 +13,7 @@ spec:
   project: default
   source:
     path: component-config/argocd
-    repoURL: git@github.com/Pyrrha/home-cluster.git
+    repoURL: git@github.com:Pyrrha/home-cluster.git
     targetRevision: HEAD
   syncPolicy:
     automated:
