@@ -1,0 +1,81 @@
+# Default values: https://github.com/argoproj/argo-helm/blob/master/charts/argo-cd/values.yaml
+
+argo-cd:
+  notifications:
+    enabled: false
+  applicationSet:
+    enabled: false
+
+  ## Dexs
+  dex:
+    resources:
+      requests:
+        cpu: 10m
+        memory: 32Mi
+  ## Redis
+  redis:
+    resources:
+      requests:
+        cpu: 100m
+        memory: 64Mi
+  ## Application Set
+  applicationSet:
+    resources:
+      requests:
+        cpu: 100m
+        memory: 128Mi
+  ## Notification
+  notifications:
+    resources:
+      requests:
+        cpu: 100m
+        memory: 128Mi
+  ## ArgoCD Server
+  server:
+    resources:
+      requests:
+        cpu: 50m
+        memory: 64Mi
+
+    ingress:
+      enabled: true
+
+      # The NGINX ingress controller uses this class by default.
+      ingressClassName: nginx # <== Change this if necessary.
+
+      annotations:
+        # cert-manager will use this issuer to generate a certificate for this
+        # ingress.
+        cert-manager.io/cluster-issuer: letsencrypt
+
+        # The ArgoCD server expects requests to be encrypted.
+        nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+
+      hosts:
+        - argocd.dietz.dev
+
+      tls:
+        - hosts:
+            - argocd.dietz.dev
+
+          # Cert-manager astores the created certificate in this secret.
+          secretName: argocd-cert
+
+  controller:
+    resources:
+      limits:
+        cpu: 1000m
+        memory: 1Gi
+      requests:
+        cpu: 250m
+        memory: 256Mi
+
+  repoServer:
+    resources:
+      limits:
+        cpu: 1000m
+        memory: 1Gi
+      requests:
+        cpu: 10m
+        memory: 64Mi
+

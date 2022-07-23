@@ -1,0 +1,10 @@
+apiVersion: v2
+name: sealed-secrets
+description: A Padok-standard deployment of SealedSecret.
+type: application
+version: 2.1.1
+dependencies:
+  - name: sealed-secrets
+    repository: https://bitnami-labs.github.io/sealed-secrets
+    version: 2.2.0
+

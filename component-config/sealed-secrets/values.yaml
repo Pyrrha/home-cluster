@@ -1,0 +1,10 @@
+# Default values : https://github.com/bitnami-labs/sealed-secrets/blob/helm-v2.1.8/helm/sealed-secrets/values.yaml
+sealed-secrets:
+  resources:
+    requests:
+      cpu: 10m
+      memory: 64Mi
+  metrics:
+    serviceMonitor:
+      enabled: true
+
