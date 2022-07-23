@@ -6,5 +6,5 @@ sealed-secrets:
       memory: 64Mi
   metrics:
     serviceMonitor:
-      enabled: true
+      enabled: false
 
