@@ -13,7 +13,7 @@ spec:
     name: in-cluster
   source:
     repoURL: git@github.com:Pyrrha/home-cluster.git
-    path: ./argocd-config/applications/
+    path: argo-config/applications/
     directory:
       recurse: true
   syncPolicy:
