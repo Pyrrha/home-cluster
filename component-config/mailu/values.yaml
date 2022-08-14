@@ -1,0 +1,560 @@
+# Default values for mailu.
+
+# A list of mail hostnames is required. The first will be used as primary mail hostname
+hostnames:
+  - imap.dietz.dev
+  - smtp.dietz.dev
+
+# The mail domain is required. See https://github.com/Mailu/Mailu/blob/master/docs/faq.rst#what-is-the-difference-between-domain-and-hostnames
+domain: dietz.dev
+
+# The secret key is required for protecting authentication cookies and must be set individually for each deployment
+secretKey: hZzB7(1q23l.%1Vxwme1b(rKpYlS9vG4RhQWTpOw(24Mu2!eQKj8Q6GKu!%fKCzW
+
+# An initial account can automatically be created:
+#initialAccount:
+#  username: mailadmin
+#  domain: mydomain.com
+#  password: chang3m3!
+
+
+nameOverride: ""
+fullnameOverride: ""
+clusterDomain: cluster.local
+
+nodeSelector: {}
+
+# Tolerations for pod assignment
+# Ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+tolerations: {}
+
+# Affinity for pod assignment
+# Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
+affinity: {}
+
+database:
+  # type of the database for mailu (sqlite or mysql)
+  # default database is an embedded sqlite
+  # for mysql, see settings below
+  type: sqlite
+
+  # type of the database for roundcube (sqlite or mysql)
+  # default database is an embedded sqlite
+  # for mysql, see settings below
+  roundcubeType: sqlite
+
+# For mysql/mariadb use the following config:
+# Set the host to use an external database.
+# If not host is set, a database instance is created by this chart.
+#   type: mysql
+  mysql: {}
+    # host: external-db-hostname
+    # root password for mysql database
+    # rootPassword: chang3m3! # can only be set for embedded mysql
+
+    # settings for mailu (required if mailu database type is "mysql")
+    # database: mailu
+    # user: mailu
+    # password: chang3m3!
+
+  # For an external PostgreSQL database, use the following config:
+  postgresql: {}
+    # host: external-db-hostname
+    # database: mailu
+    # user: mailu
+    # password: chang3m3!
+
+    # settings for roundcube (required if roundcube database type is "mysql" or "postgresql")
+    # roundcubeDatabase: roundcube
+    # roundcubeUser: roundcube
+    # roundcubePassword: chang3m3!
+
+external_relay: {}
+#    host: "[domain.tld]:port"
+#    username: username
+#    password: SECRET
+#    # username and password can also be stored as secret:
+#    secretName: external-relay-secret
+#    usernameKey: username
+#    passwordKey: password
+
+persistence:
+  # Setings for a single volume for all apps
+  # set single_pvc: false to use a per app volume and set the properties in <app>.persistence (ex. admin.persistence)
+  single_pvc: true
+  size: 100Gi
+  accessMode: ReadWriteOnce
+  #annotations:
+  #  "helm.sh/resource-policy": keep
+  #hostPath: /path/on/the/host
+  #existingClaim: name-of-existing.claim
+  #storageClass: "-"
+  #claimNameOverride: my-claim-name
+
+# Change this if you're using different address ranges for pods
+subnet: 10.42.0.0/16
+
+# Version of mailu docker images to use when not specified otherwise
+mailuVersion: 1.9.26
+
+# default log level. can be overridden globally or per service
+logLevel: WARNING
+
+# local part of the postmaster email address (Mailu will use @$DOMAIN as domain part)
+postmaster: postmaster
+
+mail:
+  messageSizeLimitInMegabytes: 50
+
+  # Configuration to prevent brute-force attacks. See the documentation for further information: https://mailu.io/master/configuration.html
+  authRatelimitIP: 60/hour
+  authRatelimitIPv4Mask: 24
+  authRatelimitIPv6Mask: 56
+  authRatelimitUser: 100/day
+  authRatelimitExemtionLength: 86400
+  # authRatelimitExemtion:
+
+  # Configuration to reduce outgoing spam in case of an compromised account. See the documentation for further information: https://mailu.io/1.9/configuration.html?highlight=MESSAGE_RATELIMIT
+  messageRatelimit: 200/day
+  # messageRatelimitExemption:
+
+# certmanager settings
+certmanager:
+  enabled: true
+  issuerType: ClusterIssuer
+  issuerName: letsencrypt
+  apiVersion: cert-manager.io/v1
+
+# Set ingress and loadbalancer config
+ingress:
+  externalIngress: true
+  tlsFlavor: cert
+  className: ""
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: "0"
+  realIpHeader: X-Forwarded-For
+  realIpFrom: 0.0.0.0/0
+
+# Frontend load balancer for non-HTTP(s) services
+front:
+  # logLevel: WARNING
+  image:
+    repository: mailu/nginx
+    # tag defaults to mailuVersion
+    # tag: master
+  resources:
+    requests:
+      memory: 100Mi
+      cpu: 100m
+    limits:
+      memory: 200Mi
+      cpu: 200m
+  startupProbe:
+    periodSeconds: 10
+    failureThreshold: 30
+    timeoutSeconds: 5
+  livenessProbe:
+    periodSeconds: 10
+    failureThreshold: 3
+    timeoutSeconds: 5
+  readinessProbe:
+    periodSeconds: 10
+    failureThreshold: 1
+    timeoutSeconds: 5
+  # Deployment or DaemonSet
+  controller:
+    kind: Deployment
+  nodeSelector: {}
+
+  # Expose front mail ports via hostPort
+  hostPort:
+    enabled: true
+
+  # Expose front mail ports via external service (ClusterIP or LoadBalancer)
+  externalService:
+    enabled: false
+    type: ClusterIP
+    # LoadBalancer
+    # type: LoadBalancer
+    # loadBalancerIP:
+    externalTrafficPolicy: Local
+    annotations: {}
+    pop3:
+      pop3: false
+      pop3s: true
+    imap:
+      imap: false
+      imaps: true
+    smtp:
+      smtp: true
+      smtps: true
+      submission: true
+
+admin:
+  # logLevel: WARNING
+  image:
+    repository: mailu/admin
+    # tag defaults to mailuVersion
+    # tag: master
+  persistence:
+    size: 20Gi
+    storageClass: ""
+    accessMode: ReadWriteOnce
+    claimNameOverride: ""
+    #annotations:
+    #  "helm.sh/resource-policy": keep
+
+  resources:
+    requests:
+      memory: 500Mi
+      cpu: 500m
+    limits:
+      memory: 500Mi
+      cpu: 500m
+  podAnnotations: {}
+  startupProbe:
+    periodSeconds: 10
+    failureThreshold: 30
+    timeoutSeconds: 5
+  livenessProbe:
+    periodSeconds: 10
+    failureThreshold: 3
+    timeoutSeconds: 5
+  readinessProbe:
+    periodSeconds: 10
+    failureThreshold: 1
+    timeoutSeconds: 5
+
+
+redis:
+  image:
+    repository: redis
+    tag: 5-alpine
+  persistence:
+    size: 20Gi
+    storageClass: ""
+    accessMode: ReadWriteOnce
+    claimNameOverride: ""
+    #annotations:
+    #  "helm.sh/resource-policy": keep
+  resources:
+    requests:
+      memory: 200Mi
+      cpu: 100m
+    limits:
+      memory: 300Mi
+      cpu: 200m
+  startupProbe:
+    periodSeconds: 10
+    failureThreshold: 30
+    timeoutSeconds: 5
+  livenessProbe:
+    periodSeconds: 10
+    failureThreshold: 3
+    timeoutSeconds: 5
+  readinessProbe:
+    periodSeconds: 10
+    failureThreshold: 1
+    timeoutSeconds: 5
+
+postfix:
+  # logLevel: WARNING
+  image:
+    repository: mailu/postfix
+    # tag defaults to mailuVersion
+    # tag: master
+  containerSecurityContext: {}
+  #    CRI-O users will need to add the following:
+  #    capabilities:
+  #      add:
+  #        - SYS_CHROOT
+  persistence:
+    size: 20Gi
+    storageClass: ""
+    accessMode: ReadWriteOnce
+    claimNameOverride: ""
+    #annotations:
+    #  "helm.sh/resource-policy": keep
+  resources:
+    requests:
+      memory: 2Gi
+      cpu: 500m
+    limits:
+      memory: 2Gi
+      cpu: 500m
+  startupProbe:
+    periodSeconds: 10
+    failureThreshold: 30
+    timeoutSeconds: 5
+  livenessProbe:
+    periodSeconds: 10
+    failureThreshold: 3
+    timeoutSeconds: 5
+  readinessProbe:
+    periodSeconds: 10
+    failureThreshold: 1
+    timeoutSeconds: 5
+
+dovecot:
+  enabled: true
+  # logLevel: WARNING
+  image:
+    repository: mailu/dovecot
+    # tag defaults to mailuVersion
+    # tag: master
+  containerSecurityContext: {}
+#    CRI-O users will need to add the following:
+#    capabilities:
+#      add:
+#        - SYS_CHROOT
+  persistence:
+    size: 20Gi
+    storageClass: ""
+    accessMode: ReadWriteOnce
+    claimNameOverride: ""
+    #annotations:
+    #  "helm.sh/resource-policy": keep
+  resources:
+    requests:
+      memory: 500Mi
+      cpu: 500m
+    limits:
+      memory: 500Mi
+      cpu: 500m
+  startupProbe:
+    periodSeconds: 10
+    failureThreshold: 30
+    timeoutSeconds: 5
+  livenessProbe:
+    periodSeconds: 10
+    failureThreshold: 3
+    timeoutSeconds: 5
+  readinessProbe:
+    periodSeconds: 10
+    failureThreshold: 1
+    timeoutSeconds: 5
+  # enable dovecot overrides
+  # overrides:
+  #   dovecot.conf: |
+  #     # More info here: https://mailu.io/1.8/kubernetes/mailu/index.html#dovecot
+  #     mail_nfs_index = yes
+  #     mail_nfs_storage = yes
+  #     mail_fsync = always
+  #     mmap_disable = yes
+  #     mail_max_userip_connections=100
+
+# historically rspamd and clamav shared their volumes in this chart
+# this isn't needed anymore. to maintain backward compatibility and give users
+# some time to migrate we keep this here.
+#
+# if you want a "shared" volume keep in mind you have to use affinity rules on
+# rspamd and clamav pods so that both pods are scheduled on the same node
+# to keep RWO volumes working
+#
+# otherwise set rspamd_clamav_persistence.single_pvc to true and review
+# rspamd.persistence and clamav.persistence
+rspamd_clamav_persistence:
+  size: 20Gi
+  storageClass: ""
+  accessMode: ReadWriteOnce
+  claimNameOverride: ""
+  single_pvc: false
+  #annotations:
+  #  "helm.sh/resource-policy": keep
+
+rspamd:
+  # logLevel: WARNING
+  image:
+    repository: mailu/rspamd
+    # tag defaults to mailuVersion
+    # tag: master
+  persistence:
+    size: 1Gi
+    storageClass: ""
+    accessMode: ReadWriteOnce
+    claimNameOverride: ""
+    #annotations:
+    #  "helm.sh/resource-policy": keep
+  resources:
+    requests:
+      memory: 100Mi
+      cpu: 100m
+    limits:
+      memory: 200Mi
+      cpu: 200m
+  startupProbe: # give it 15 minutes for initial rule compilation
+    periodSeconds: 10
+    failureThreshold: 90
+    timeoutSeconds: 5
+  livenessProbe:
+    periodSeconds: 10
+    failureThreshold: 3
+    timeoutSeconds: 5
+  readinessProbe:
+    periodSeconds: 10
+    failureThreshold: 1
+    timeoutSeconds: 5
+
+clamav:
+  enabled: true
+  # logLevel: WARNING
+  image:
+    repository: mailu/clamav
+    # tag defaults to mailuVersion
+    # tag: master
+  persistence:
+    size: 2Gi
+    storageClass: ""
+    accessMode: ReadWriteOnce
+    claimNameOverride: ""
+    #annotations:
+    #  "helm.sh/resource-policy": keep
+  resources:
+    requests:
+      memory: 1Gi
+      cpu: 1000m
+    limits:
+      memory: 2Gi
+      cpu: 1000m
+  startupProbe: # give it 10 minutes for initial freshclam update
+    periodSeconds: 10
+    failureThreshold: 60
+    timeoutSeconds: 5
+  livenessProbe:
+    periodSeconds: 10
+    failureThreshold: 3
+    timeoutSeconds: 5
+  readinessProbe:
+    periodSeconds: 10
+    failureThreshold: 1
+    timeoutSeconds: 5
+  # clamav must share a volume with rspamd. This is usually enforced by the volume itself (RWO). If you use RWM volumes and want to
+  # have clamav running on the same node, add the following affinity rule:
+#  affinity:
+#    podAffinity:
+#      requiredDuringSchedulingIgnoredDuringExecution:
+#        - labelSelector:
+#            matchExpressions:
+#              - key: component
+#                operator: In
+#                values:
+#                  - rspamd
+#          topologyKey: kubernetes.io/hostname
+
+roundcube:
+  enabled: true
+  # logLevel: WARNING
+  image:
+    repository: mailu/roundcube
+    # tag defaults to mailuVersion
+    # tag: master
+  persistence:
+    size: 20Gi
+    storageClass: ""
+    accessMode: ReadWriteOnce
+    claimNameOverride: ""
+    #annotations:
+    #  "helm.sh/resource-policy": keep
+  uri: /roundcube
+  resources:
+    requests:
+      memory: 100Mi
+      cpu: 100m
+    limits:
+      memory: 200Mi
+      cpu: 200m
+  startupProbe:
+    periodSeconds: 10
+    failureThreshold: 30
+    timeoutSeconds: 5
+  livenessProbe:
+    periodSeconds: 10
+    failureThreshold: 3
+    timeoutSeconds: 5
+  readinessProbe:
+    periodSeconds: 10
+    failureThreshold: 1
+    timeoutSeconds: 5
+
+
+webdav:
+  enabled: false
+  # logLevel: WARNING
+  image:
+    repository: mailu/radicale
+    # tag defaults to mailuVersion
+    # tag: master
+  persistence:
+    size: 20Gi
+    storageClass: ""
+    accessMode: ReadWriteOnce
+    claimNameOverride: ""
+    #annotations:
+    #  "helm.sh/resource-policy": keep
+  startupProbe:
+    periodSeconds: 10
+    failureThreshold: 30
+    timeoutSeconds: 5
+  livenessProbe:
+    periodSeconds: 10
+    failureThreshold: 3
+    timeoutSeconds: 5
+  readinessProbe:
+    periodSeconds: 10
+    failureThreshold: 1
+    timeoutSeconds: 5
+
+mysql:
+  image:
+    repository: library/mariadb
+    tag: 10.4.10
+  persistence:
+    size: 20Gi
+    storageClass: ""
+    accessMode: ReadWriteOnce
+    claimNameOverride: ""
+    #annotations:
+    #  "helm.sh/resource-policy": keep
+  resources:
+    requests:
+      memory: 256Mi
+      cpu: 100m
+    limits:
+      memory: 512Mi
+      cpu: 200m
+  startupProbe:
+    periodSeconds: 10
+    failureThreshold: 30
+    timeoutSeconds: 5
+  livenessProbe:
+    periodSeconds: 10
+    failureThreshold: 3
+    timeoutSeconds: 5
+  readinessProbe:
+    periodSeconds: 10
+    failureThreshold: 1
+    timeoutSeconds: 5
+
+fetchmail:
+  enabled: false
+  # logLevel: WARNING
+  image:
+    repository: mailu/fetchmail
+    # tag defaults to mailuVersion
+    # tag: master
+  persistence:
+    size: 20Gi
+    storageClass: ""
+    accessMode: ReadWriteOnce
+    claimNameOverride: ""
+    #annotations:
+    #  "helm.sh/resource-policy": keep
+  resources:
+    requests:
+      memory: 100Mi
+      cpu: 100m
+    limits:
+      memory: 200Mi
+      cpu: 200m
+  delay: 600
+
