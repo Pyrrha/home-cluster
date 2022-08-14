@@ -4,6 +4,9 @@ kind: PersistentVolume
 metadata:
   name: mailu-data
 spec:
+  claimRef:
+    name: mailu-storage
+    namespace: mailu
   capacity:
     storage: 50Gi
   volumeMode: Filesystem

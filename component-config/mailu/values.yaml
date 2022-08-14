@@ -202,6 +202,9 @@ admin:
     claimNameOverride: ""
     #annotations:
     #  "helm.sh/resource-policy": keep
+    dnsConfig:
+      nameservers:
+      - 8.8.8.8
 
   resources:
     requests:
