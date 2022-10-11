@@ -1,10 +1,7 @@
-apiVersion: v2
+apiVersion: v1
 name: argocd
-description: A Padok-standard deployment of ArgoCD.
-type: application
-version: 3.26.11
+version: 1.0.0
 dependencies:
-  - name: argo-cd
-    repository: https://argoproj.github.io/argo-helm
-    version: 4.8.3
-
+- name: argo-cd
+  repository: https://argoproj.github.io/argo-helm
+  version: 5.5.21
