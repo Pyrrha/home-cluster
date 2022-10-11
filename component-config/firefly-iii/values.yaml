@@ -1,6 +1,6 @@
 firefly-db:
   # if you set this to false it will not be installed
-  enabled: true
+  enabled: false
   image:
     repository: postgres
     tag: 10-alpine
