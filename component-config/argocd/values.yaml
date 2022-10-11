@@ -1,5 +1,4 @@
 argo-cd:
-  ## ArgoCD Server
   server:
     resources:
       requests:
@@ -8,24 +7,13 @@ argo-cd:
 
     ingress:
       enabled: true
-
-      # The NGINX ingress controller uses this class by default.
-      # ingressClassName: nginx # <== Change this if necessary.
-
+      ingressClassName: nginx
       annotations:
-        # cert-manager will use this issuer to generate a certificate for this
-        # ingress.
-        # cert-manager.io/cluster-issuer: letsencrypt
-
-        # The ArgoCD server expects requests to be encrypted.
-        # nginx.ingress.kubernetes.io/backend-protocol: HTTPS
-
+        cert-manager.io/cluster-issuer: letsencrypt
+        nginx.ingress.kubernetes.io/backend-protocol: HTTPS
       hosts:
         - argocd.dietz.dev
-
       tls:
         - hosts:
             - argocd.dietz.dev
-
-          # Cert-manager astores the created certificate in this secret.
           secretName: argocd-cert
