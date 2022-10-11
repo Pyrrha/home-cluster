@@ -4,8 +4,8 @@ metadata:
   name: perso
   annotations:
     argocd.argoproj.io/manifest-generate-paths: .
-  # finalizers:
-  #   - resources-finalizer.argocd.argoproj.io
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
     namespace: perso
