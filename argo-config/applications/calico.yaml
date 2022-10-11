@@ -4,8 +4,8 @@ metadata:
   name: calico
   annotations:
     argocd.argoproj.io/manifest-generate-paths: .
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
+  # finalizers:
+  #   - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
     name: in-cluster
@@ -16,8 +16,8 @@ spec:
     targetRevision: HEAD
   syncPolicy:
     automated:
-      selfHeal: true
-      prune: true
+      # selfHeal: true
+      # prune: true
     syncOptions:
       - CreateNamespace=true
 
