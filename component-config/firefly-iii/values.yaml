@@ -1,33 +1,66 @@
-firefly-db:
-  # if you set this to false it will not be installed
-  enabled: false
-  image:
-    repository: postgres
-    tag: 10-alpine
-    pullPolicy: IfNotPresent
+firefly-iii-stack:
+  firefly-db:
+    # if you set this to false it will not be installed
+    enabled: true
+    image:
+      repository: postgres
+      tag: 15rc2
+      pullPolicy: IfNotPresent
+  
+    storage:
+      class: local-storage
+      accessModes: ReadWriteMany
+      dataSize: 2Gi
+  
+    # environment variables
+    configs:
+      DBHOST: firefly-iii-firefly-db
+      POSTGRES_DB: firefly
+      POSTGRES_USER: firefly
+      POSTGRES_PASSWORD: "pWNBNV8R92q??CaGQcwYqK17F1H?a2f."
+      POSTGRES_HOST_AUTH_METHOD: scram-sha-256
 
-  storage:
-    class: nfs-client
-    accessModes: ReadWriteMany
-    dataSize: 1Gi
+      TZ: Europe/Paris
+  
+    backupSchedule: "0 3 * * *"
+  
+    persistence:
+      enabled: false
+  
+  firefly-iii:
+    # -- Set to false to not deploy Firefly III
+    enabled: true
+    persistence:
+      enabled: false
+    config:
+      env:
+        APP_KEY: SomeRandomStringOf32CharsExactly
+        SITE_OWNER: tristan.dietz@laposte.net
+        TZ: Europe/Paris
+        TRUSTED_PROXIES: "**"
+        DEFAULT_LANGUAGE: fr_FR
 
-  # environment variables
-  configs:
-    RESTORE_URL: ""
-    BACKUP_URL: ""
-    PGPASSWORD: "YOURDBPASSWORD"
-    DBHOST: firefly-firefly-db
-    DBPORT: "5432"
-    DBNAME: firefly
-    DBUSER: firefly
-    TZ: Europe/Paris
+        # Database PGSQL
+        DB_CONNECTION: pgsql
+        DB_HOST: firefly-iii-firefly-db
+        DB_PORT: 5432
+        DB_DATABASE: firefly
+        DB_USERNAME: firefly
+        DB_PASSWORD: "pWNBNV8R92q??CaGQcwYqK17F1H?a2f."
 
-  backupSchedule: "0 3 * * *"
-
-firefly-iii:
-  # -- Set to false to not deploy Firefly III
-  enabled: true
-
-importer:
-  # -- Set to false to not deploy the importer
-  enabled: true
+    ingress:
+      enabled: true
+      className: nginx
+      annotations:
+        cert-manager.io/cluster-issuer: "letsencrypt"
+        # kubernetes.io/tls-acme: "true"
+      hosts:
+        - firefly-iii.dietz.dev
+      tls:
+        - hosts:
+          - firefly-iii.dietz.dev
+          secretName: firefly-iii-cert
+  
+  importer:
+    # -- Set to false to not deploy the importer
+    enabled: true
