@@ -55,10 +55,10 @@ firefly-iii-stack:
         cert-manager.io/cluster-issuer: "letsencrypt"
         # kubernetes.io/tls-acme: "true"
       hosts:
-        - firefly-iii.dietz.dev
+        - compta.dietz.dev
       tls:
         - hosts:
-          - firefly-iii.dietz.dev
+          - compta.dietz.dev
           secretName: firefly-iii-cert
   
   importer:
