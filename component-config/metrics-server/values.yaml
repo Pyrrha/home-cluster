@@ -1,5 +1,6 @@
 metrics-server:
   apiService:
+    insecureSkipTLSVerify: false
     caBundle: "-----BEGIN CERTIFICATE-----
 MIIC/jCCAeagAwIBAgIBADANBgkqhkiG9w0BAQsFADAVMRMwEQYDVQQDEwprdWJl
 cm5ldGVzMB4XDTIyMTAxMDIyMTAwNloXDTMyMTAwNzIyMTAwNlowFTETMBEGA1UE
