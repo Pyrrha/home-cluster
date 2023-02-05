@@ -1,0 +1,30 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ip
+spec:
+  schedule: "*/5 * * * *"
+  successfulJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: ip
+              image: curlimages/curl
+              imagePullPolicy: IfNotPresent
+              command:
+                - /bin/sh
+                - -c
+                - |
+                  curl -s -X PATCH https://api.cloudflare.com/client/v4/zones/cb46dac35ba61a2aef819aec955f9603/dns_records/bd8818187a07b4fc2860e518924decf4 -H "Authorization: $CLOUDFLARE_API_KEY" -H "Content-Type: application/json" -d '{"content": "'$(curl -s https://ipecho.net/plain)'"}'
+                  curl -s -X PATCH https://api.cloudflare.com/client/v4/zones/cb46dac35ba61a2aef819aec955f9603/dns_records/60a3b6c803263f36a6f83284045e2a8b -H "Authorization: $CLOUDFLARE_API_KEY" -H "Content-Type: application/json" -d '{"content": "'$(curl -s https://ipecho.net/plain)'"}'
+              env:
+                - name: CLOUDFLARE_API_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: cloudflare-api
+                      key: key
+                      optional: false
+          restartPolicy: Never
+
