@@ -1,6 +1,7 @@
 renovate:
   cronjob:
     schedule: "* * * * *"
+    successfulJobsHistoryLimit: 3
 
   renovate:
     existingConfigFile: renovate.json
