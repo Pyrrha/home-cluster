@@ -1,4 +1,4 @@
-# Default values : https://github.com/bitnami-labs/sealed-secrets/blob/helm-v2.1.8/helm/sealed-secrets/values.yaml
+# Default values : https://github.com/bitnami-labs/sealed-secrets/blob/helm-v2.7.3/helm/sealed-secrets/values.yaml
 sealed-secrets:
   resources:
     requests:
