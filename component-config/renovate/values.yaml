@@ -1,6 +1,7 @@
 renovate:
   cronjob:
     schedule: "* * * * *"
+    failedJobsHistoryLimit: 3
     successfulJobsHistoryLimit: 3
 
   renovate:
