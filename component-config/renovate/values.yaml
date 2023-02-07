@@ -1,3 +1,6 @@
 renovate:
   cronjob:
     schedule: "* * * * *"
+
+  renovate:
+    existingConfigFile: renovate.json
