@@ -7,7 +7,7 @@ renovate:
   renovate:
     existingConfigFile: renovate.json
 
-  envFrom:
-    - secretRef:
-      name: env-renovate
+  # envFrom:
+  #   - secretRef:
+  #     name: env-renovate
 
