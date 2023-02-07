@@ -4,6 +4,9 @@ renovate:
     failedJobsHistoryLimit: 3
     successfulJobsHistoryLimit: 3
 
+  renovate:
+    existingConfigFile: renovate.json
+
   envFrom:
     - secretRef:
       name: env-renovate
