@@ -5,7 +5,7 @@ description: Firefly III stack
 type: application
 dependencies:
 - name: firefly-iii-stack
-  version: 0.7.0
+  version: 0.7.2
   repository: https://firefly-iii.github.io/kubernetes/
 home: https://github.com/firefly-iii/kubernetes
 sources:
