@@ -5,6 +5,7 @@ metadata:
   labels:
     {{- include "perso.labels" . | nindent 4 }}
 spec:
+  revisionHistoryLimit: 0
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
