@@ -17,3 +17,6 @@ argo-cd:
         - hosts:
             - argocd.dietz.dev
           secretName: argocd-cert
+
+  dex:
+    enabled: false
