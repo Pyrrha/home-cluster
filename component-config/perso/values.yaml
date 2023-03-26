@@ -7,8 +7,6 @@ autoscaling:
   minReplicas: 1
   maxReplicas: 3
 
-
-
 image:
   repository: "pyrrha/me"
   pullPolicy: Always
