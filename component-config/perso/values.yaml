@@ -12,7 +12,7 @@ image:
   repository: "pyrrha/me"
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "v1.1.3"
+  tag: "v1.1.5"
 
 imagePullSecrets: []
 nameOverride: ""
