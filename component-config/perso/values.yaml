@@ -9,10 +9,10 @@ autoscaling:
   targetMemoryUtilizationPercentage: 80
 
 image:
-  repository: "pyrrha/me"
+  repository: pyrrha/me
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "v1.1.5"
+  tag: v1.1.6
 
 imagePullSecrets: []
 nameOverride: ""
@@ -76,13 +76,6 @@ resources: {}
   # requests:
   #   cpu: 100m
   #   memory: 128Mi
-
-autoscaling:
-  enabled: false
-  minReplicas: 1
-  maxReplicas: 5
-  targetCPUUtilizationPercentage: 80
-  # targetMemoryUtilizationPercentage: 80
 
 nodeSelector: {}
 
