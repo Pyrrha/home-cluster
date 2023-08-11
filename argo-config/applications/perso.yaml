@@ -21,4 +21,8 @@ spec:
       prune: true
     syncOptions:
       - CreateNamespace=true
-
+  ignoreDifferences:
+    - group: autoscaling
+      kind: HorizontalPodAutoscaler
+      jqPathExpressions:
+        - .spec.metrics[].resource.name | select((. == "cpu") or (. == "memory"))
