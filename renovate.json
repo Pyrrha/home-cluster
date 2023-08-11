@@ -3,9 +3,9 @@
   "extends": [
     "config:base",
     ":automergeMinor",
-    ":automergePatch",
     ":enableVulnerabilityAlertsWithLabel('security')",
     ":rebaseStalePrs",
     ":separateMultipleMajorReleases"
   ]
+
 }
