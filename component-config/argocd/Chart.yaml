@@ -1,4 +1,4 @@
-apiVersion: v1
+apiVersion: v2
 name: argocd
 version: 1.0.0
 dependencies:
