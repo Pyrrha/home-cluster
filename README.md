@@ -8,6 +8,10 @@
   - Find how to configure [TLS bootstrap](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/#cannot-use-the-metrics-server-securely-in-a-kubeadm-cluster)
     - Add `serverTLSBootstrap: true` to kubelet config file `/var/lib/kubelet/config.yaml`
     - Add `serverTLSBootstrap: true` to configmap `kubelet-config` (path: data.kubelet.serverTLSBootstrap)
+    - Restart kubelet daemon
+    - Certificates have been created!
+    - List the freshly created certificate: `kubectl get csr`
+    - Then approve pending one: `kubectl certificate approve <csr-id>`
 - Deploy Calico
 - Join cluster with other nodes
 - Deploy ArgoCD
