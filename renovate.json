@@ -6,7 +6,8 @@
     ":automergePatch",
     ":enableVulnerabilityAlertsWithLabel('security')",
     ":rebaseStalePrs",
-    ":separateMultipleMajorReleases"
+    ":separateMultipleMajorReleases",
+    ":skipStatusChecks"
   ]
 
 }
