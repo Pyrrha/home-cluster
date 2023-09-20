@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: calcom
+  name: calcom-stack
   annotations:
     argocd.argoproj.io/manifest-generate-paths: .
   finalizers:
@@ -12,7 +12,7 @@ spec:
     name: in-cluster
   project: default
   source:
-    path: component-config/calcom
+    path: component-config/calcom-stack
     repoURL: git@github.com:Pyrrha/home-cluster.git
     targetRevision: HEAD
   syncPolicy:
