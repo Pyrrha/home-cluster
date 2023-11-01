@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: minecraft
+  namespace: minecraft
+  labels:
+    app.kubernetes.io/name: minecraft
+spec:
+  selector:
+    matchLabels:
+      app: minecraft
+  serviceName: "minecraft"
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: minecraft
+        app.kubernetes.io/name: minecraft
+    spec:
+      terminationGracePeriodSeconds: 60
+      containers:
+      - name: minecraft
+        image: openjdk:17-slim
+        workingDir: /usr/src/myapp
+        command: [ "java", "-Xmx4G" ]
+        args: [ "-jar", "fabric-server-mc.1.20.1-loader.0.14.22-launcher.0.11.2.jar", "nogui" ]
+        ports:
+        - containerPort: 25565
+          name: minecraft
+        volumeMounts:
+        - name: minecraft
+          mountPath: /usr/src/myapp
+        resources:
+          limits:
+            cpu: 3
+            memory: 4Gi
+          requests:
+            cpu: 1
+            memory: 2Gi
+  volumeClaimTemplates:
+  - metadata:
+      name: minecraft
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: "local-storage"
+      resources:
+        requests:
+          storage: 10Gi
