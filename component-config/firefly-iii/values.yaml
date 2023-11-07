@@ -4,7 +4,7 @@ firefly-iii-stack:
     enabled: true
     image:
       repository: postgres
-      tag: 15
+      tag: 16
       pullPolicy: IfNotPresent
   
     storage:
