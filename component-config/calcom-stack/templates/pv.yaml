@@ -11,7 +11,7 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   storageClassName: local-storage
   local:
-    path: /opt/calcom/postgresql
+    path: /srv/calcom/postgresql
   nodeAffinity:
     required:
       nodeSelectorTerms:
