@@ -2,7 +2,7 @@ apiVersion: v2
 name: calcom
 description: Prise de rdv
 type: application
-version: 0.0.8
+version: 0.0.9
 dependencies:
   - name: calcom-stack
     repository: https://pyrrha.github.io/calcom-helm
