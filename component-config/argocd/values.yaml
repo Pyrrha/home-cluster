@@ -1,4 +1,6 @@
 argo-cd:
+  domain: argocd.dietz.dev
+
   server:
     resources:
       requests:
@@ -11,9 +13,7 @@ argo-cd:
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt
         nginx.ingress.kubernetes.io/backend-protocol: HTTPS
-      hosts:
-        - argocd.dietz.dev
-      tls:
+      extraTls:
         - hosts:
             - argocd.dietz.dev
           secretName: argocd-cert
