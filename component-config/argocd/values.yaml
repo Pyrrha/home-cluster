@@ -1,5 +1,6 @@
 argo-cd:
-  domain: argocd.dietz.dev
+  global:
+    domain: argocd.dietz.dev
 
   server:
     resources:
