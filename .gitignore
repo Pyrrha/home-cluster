@@ -1,1 +1,2 @@
-./component-config/argocd/templates/secret.yaml
+**/my_secret.yaml
+
