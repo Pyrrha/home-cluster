@@ -3,4 +3,4 @@ dependencies:
   repository: https://docs.tigera.io/calico/charts
   version: v3.28.2
 digest: sha256:dac0469ef92100d06779d1e149ced58ed192fbc02e6f8aa88c2b4161fdf74e6a
-generated: "2024-09-19T08:21:04.723719118Z"
+generated: "2024-10-15T20:22:00.587199+02:00"
