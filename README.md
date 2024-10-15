@@ -108,3 +108,8 @@
   k apply -f argo-config/applications/app-of-apps.yaml
   ```
 - It will automaticaly create all other applications
+- Retrieve ArgoCD admin password:
+  ```sh
+  k get secret -n argocd argocd-initial-admin-secret -o yaml | yq '.data.password' | base64 -d
+  ```
+
