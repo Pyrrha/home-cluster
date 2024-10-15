@@ -97,6 +97,7 @@
   # IP
   kubeseal --controller-namespace sealed-secrets --controller-name sealed-secrets -o yaml -n kube-system < my_secret.yaml > cloudflare-api-key.yaml
   ```
+- Commit secrets to deploy them with ArgoCD
 - Deploy ArgoCD:
   ```sh
   helm upgrade -n argocd --create-namespace --install --dependency-update argocd . -f values.yaml
