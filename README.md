@@ -84,8 +84,15 @@
     vim custom-resources.yaml # set CIDR to the same of kubeadm.yaml file
     k apply -f custom-resources.yaml
     ```
-- Join cluster with other nodes
+- Deploy `sealed-secrets`:
+  ```sh
+  helm upgrade -n sealed-secrets --create-namespace --install --dependency-update sealed-secrets . -f values.yaml
+  ```
+- Generate secrets (example for Github Argo credentials):
+  ```
+  kubeseal --controller-namespace sealed-secrets --controller-name sealed-secrets -o yaml -n argocd < my_secret.yaml > templates/github.yaml
+  ```
 - Deploy ArgoCD
-- Don't forget to define the secret for Github!
+- Join cluster with other nodes
 - Apply app-of-apps.yaml Application located in ArgoCD
 - It will automaticaly create all other applications
