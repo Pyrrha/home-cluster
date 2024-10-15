@@ -3,7 +3,7 @@ kind: CronJob
 metadata:
   name: ip
 spec:
-  schedule: "*/15 * * * *"
+  schedule: "*/30 * * * *"
   successfulJobsHistoryLimit: 3
   jobTemplate:
     spec:
