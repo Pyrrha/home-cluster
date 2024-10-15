@@ -50,7 +50,7 @@
   kind: ClusterConfiguration
   kubernetesVersion: "1.31.1" # replace with current Kubernetes version
   networking:
-    podSubnet: 10.0.0.0/16 # avoid conflicts with Calico. K8s default: 10.96.0.0/12. Calico default: 192.168.0.0/16
+    podSubnet: 10.96.0.0/12 # avoid conflicts with Calico. K8s default: 10.96.0.0/12. Calico default: 192.168.0.0/16
   apiServer:
     certSANs:
     - dietz.dev
