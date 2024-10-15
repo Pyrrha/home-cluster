@@ -92,7 +92,10 @@
   ```
   kubeseal --controller-namespace sealed-secrets --controller-name sealed-secrets -o yaml -n argocd < my_secret.yaml > templates/github.yaml
   ```
-- Deploy ArgoCD
+- Deploy ArgoCD:
+  ```
+  helm upgrade -n argocd --create-namespace --install --dependency-update argocd . -f values.yaml
+  ```
 - Join cluster with other nodes
 - Apply app-of-apps.yaml Application located in ArgoCD
 - It will automaticaly create all other applications
