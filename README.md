@@ -81,9 +81,9 @@
     ```
   - Retrieve configuration and adapt the ipPool's CIDR:
     ```sh
-    wget https://raw.githubusercontent.com/projectcalico/calico/v3.28.2/manifests/custom-resources.yaml > component-config/calico/custom-resources.yaml
+    curl https://raw.githubusercontent.com/projectcalico/calico/v3.28.2/manifests/custom-resources.yaml > component-config/calico/custom-resources.yaml
     vim component-config/calico/custom-resources.yaml # set CIDR to the same of kubeadm.yaml file
-    k apply -f component-config/calico/custom-resources.yaml
+    k create -f component-config/calico/custom-resources.yaml
     ```
 - Deploy `sealed-secrets`:
   ```sh
