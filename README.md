@@ -50,7 +50,7 @@
   kind: ClusterConfiguration
   kubernetesVersion: "1.31.1" # replace with current Kubernetes version
   networking:
-    podSubnet: 192.168.0.0/16 # for Calico default configuration
+    podSubnet: 10.0.0.0/16 # avoid conflicts with Calico. K8s default: 10.96.0.0/12. Calico default: 192.168.0.0/16
   apiServer:
     certSANs:
     - dietz.dev
@@ -69,7 +69,21 @@
 - Ensure `serverTLSBootstrap` is set to `true` in configmap `kubelet-config` (path: data.kubelet.serverTLSBootstrap)
 - List the freshly created certificate: `kubectl get csr`
 - Then approve pending one: `kubectl certificate approve <csr-id>`
+- Untaint control-plane:
+  ```sh
+  kubectl taint nodes --all node-role.kubernetes.io/control-plane-
+  ```
 - Install [Tigera operator](https://docs.tigera.io/calico/latest/getting-started/kubernetes/quickstart) for Calico
+  - Apply CRDs and operator (ensure using latest version):
+    ```sh
+    kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.28.2/manifests/tigera-operator.yaml
+    ```
+  - Retrieve configuration and adapt the ipPool's CIDR:
+    ```sh
+    wget https://raw.githubusercontent.com/projectcalico/calico/v3.28.2/manifests/custom-resources.yaml
+    vim custom-resources.yaml # set CIDR to the same of kubeadm.yaml file
+    k apply -f custom-resources.yaml
+    ```
 - Join cluster with other nodes
 - Deploy ArgoCD
 - Don't forget to define the secret for Github!
