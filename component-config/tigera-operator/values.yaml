@@ -1,7 +1,0 @@
-tigera-operator:
-  installation:
-    enabled: false
-
-  apiServer:
-    enabled: false
-
