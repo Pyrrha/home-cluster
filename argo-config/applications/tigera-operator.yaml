@@ -2,6 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: tigera-operator
+  namespace: argocd
   annotations:
     argocd.argoproj.io/manifest-generate-paths: .
   finalizers:
@@ -19,4 +20,6 @@ spec:
     automated:
       selfHeal: true
       prune: true
-
+    syncOptions:
+      - ServerSideApply=true
+      - CreateNamespace=true
