@@ -88,9 +88,13 @@
   ```sh
   helm upgrade -n sealed-secrets --create-namespace --install --dependency-update sealed-secrets . -f values.yaml
   ```
-- Generate secrets (example for Github Argo credentials):
+- Generate secrets:
   ```
+  # ArgoCD
   kubeseal --controller-namespace sealed-secrets --controller-name sealed-secrets -o yaml -n argocd < my_secret.yaml > templates/github.yaml
+
+  # IP
+  kubeseal --controller-namespace sealed-secrets --controller-name sealed-secrets -o yaml -n kube-system < my_secret.yaml > cloudflare-api-key.yaml
   ```
 - Deploy ArgoCD:
   ```
