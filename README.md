@@ -76,13 +76,14 @@
 - Install [Tigera operator](https://docs.tigera.io/calico/latest/getting-started/kubernetes/quickstart) for Calico
   - Apply CRDs and operator (ensure using latest version):
     ```sh
-    kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.28.2/manifests/tigera-operator.yaml
+    wget https://raw.githubusercontent.com/projectcalico/calico/v3.28.2/manifests/tigera-operator.yaml > component-config/tigera-operator/tigera-operator.yaml
+    k create -f component-config/tigera-operator/tigera-operator.yaml
     ```
   - Retrieve configuration and adapt the ipPool's CIDR:
     ```sh
-    wget https://raw.githubusercontent.com/projectcalico/calico/v3.28.2/manifests/custom-resources.yaml
-    vim custom-resources.yaml # set CIDR to the same of kubeadm.yaml file
-    k apply -f custom-resources.yaml
+    wget https://raw.githubusercontent.com/projectcalico/calico/v3.28.2/manifests/custom-resources.yaml > component-config/calico/custom-resources.yaml
+    vim component-config/calico/custom-resources.yaml # set CIDR to the same of kubeadm.yaml file
+    k apply -f component-config/calico/custom-resources.yaml
     ```
 - Deploy `sealed-secrets`:
   ```sh
