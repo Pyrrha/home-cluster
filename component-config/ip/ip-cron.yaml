@@ -17,6 +17,8 @@ spec:
                 - /bin/sh
                 - -c
                 - |
+                  echo $CLOUDFLARE_API_KEY
+                - |
                   curl -s -X PATCH https://api.cloudflare.com/client/v4/zones/cb46dac35ba61a2aef819aec955f9603/dns_records/bd8818187a07b4fc2860e518924decf4 -H "Authorization: $CLOUDFLARE_API_KEY" -H "Content-Type: application/json" -d '{"content": "'$(curl -4 -s https://ipecho.net/plain)'"}'
                   curl -s -X PATCH https://api.cloudflare.com/client/v4/zones/cb46dac35ba61a2aef819aec955f9603/dns_records/60a3b6c803263f36a6f83284045e2a8b -H "Authorization: $CLOUDFLARE_API_KEY" -H "Content-Type: application/json" -d '{"content": "'$(curl -4 -s https://ipecho.net/plain)'"}'
               env:
