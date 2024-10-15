@@ -89,7 +89,7 @@
   helm upgrade -n sealed-secrets --create-namespace --install --dependency-update sealed-secrets . -f values.yaml
   ```
 - Generate secrets:
-  ```
+  ```sh
   # ArgoCD
   kubeseal --controller-namespace sealed-secrets --controller-name sealed-secrets -o yaml -n argocd < my_secret.yaml > templates/github.yaml
 
@@ -97,9 +97,12 @@
   kubeseal --controller-namespace sealed-secrets --controller-name sealed-secrets -o yaml -n kube-system < my_secret.yaml > cloudflare-api-key.yaml
   ```
 - Deploy ArgoCD:
-  ```
+  ```sh
   helm upgrade -n argocd --create-namespace --install --dependency-update argocd . -f values.yaml
   ```
 - Join cluster with other nodes
-- Apply app-of-apps.yaml Application located in ArgoCD
+- Apply app-of-apps.yaml:
+  ```sh
+  k apply -f argo-config/applications/app-of-apps.yaml
+  ```
 - It will automaticaly create all other applications
