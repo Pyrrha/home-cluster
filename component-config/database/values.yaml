@@ -1,0 +1,4 @@
+primary:
+  persistence:
+    existingClaim: database-pvc
+
