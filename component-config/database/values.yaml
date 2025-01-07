@@ -1,4 +1,5 @@
-primary:
-  persistence:
-    existingClaim: database-pvc
+postgresql:
+  primary:
+    persistence:
+      existingClaim: database-pvc
 
