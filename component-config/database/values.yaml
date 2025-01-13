@@ -2,4 +2,6 @@ postgresql:
   primary:
     persistence:
       existingClaim: database-pvc
+  auth:
+    existingSecret: postgresql-secret
 
