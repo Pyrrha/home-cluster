@@ -1,0 +1,48 @@
+keycloak:
+  replicaCount: 1
+  
+  postgresql:
+    enabled: false
+  
+  externalDatabase:
+    host: database-postgresql.database.svc.cluster.local
+    port: 5432
+    user: keycloak
+    database: keycloak
+    password: "1234soleil"
+    existingSecret: keycloak-database-secret
+    existingSecretHostKey: postgres-host
+    existingSecretPortKey: postgres-port
+    existingSecretUserKey: postgres-user
+    existingSecretDatabaseKey: postgres-database
+    existingSecretPasswordKey: postgres-password
+  
+  auth:
+    adminUser: admin
+    existingSecret: keycloak-admin-secret
+    passwordSecretKey: admin-password
+
+  proxy: edge
+
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    hostname: auth.dietz.dev
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt
+    extraTls:
+      - hosts:
+          - auth.dietz.dev
+        secretName: keycloak-cert
+
+  adminIngress:
+    enabled: true
+    ingressClassName: nginx
+    hostname: auth-admin.dietz.dev
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt
+    extraTls:
+      - hosts:
+          - auth-admin.dietz.dev
+        secretName: keycloak-admin-cert
+
