@@ -30,10 +30,15 @@ keycloak:
     hostname: auth.dietz.dev
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt
+    extraHosts:
+      - name: codebusters.auth.dietz.dev
     extraTls:
       - hosts:
           - auth.dietz.dev
         secretName: keycloak-cert
+      - hosts:
+          - codebusters.auth.dietz.dev
+        secretName: keycloak-codebusters-cert
 
   adminIngress:
     enabled: true
