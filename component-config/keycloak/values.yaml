@@ -22,7 +22,7 @@ keycloak:
     existingSecret: keycloak-admin-secret
     passwordSecretKey: admin-password
 
-  proxyHeaders: "forwarded"
+  proxyHeaders: "xforwarded"
 
   ingress:
     enabled: true
