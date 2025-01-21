@@ -5,11 +5,6 @@ keycloak:
     enabled: false
   
   externalDatabase:
-    host: database-postgresql.database.svc.cluster.local
-    port: 5432
-    user: keycloak
-    database: keycloak
-    password: "1234soleil"
     existingSecret: keycloak-database-secret
     existingSecretHostKey: postgres-host
     existingSecretPortKey: postgres-port
@@ -23,6 +18,9 @@ keycloak:
     passwordSecretKey: admin-password
 
   proxyHeaders: "xforwarded"
+  extraEnvVars:
+    - name: KC_HOSTNAME_DEBUG
+      value: true
 
   ingress:
     enabled: true
