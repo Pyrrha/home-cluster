@@ -20,7 +20,9 @@ keycloak:
   proxyHeaders: "xforwarded"
 
   extraEnvVars:
-    - name: "KC_HOSTNAME_DEBUG"
+    - name: KC_HOSTNAME_BACKCHANNEL_DYNAMIC
+      value: "true"
+    - name: KC_HOSTNAME_DEBUG
       value: "true"
 
   ingress:
