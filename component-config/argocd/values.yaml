@@ -20,8 +20,8 @@ argo-cd:
           secretName: argocd-cert
 
   configs:
-    admin.enabled: false
     cm:
+      admin.enabled: false
       oidc.config: |
         name: SSO
         issuer: https://auth.dietz.dev/realms/dietz
