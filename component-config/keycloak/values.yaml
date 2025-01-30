@@ -19,10 +19,14 @@ keycloak:
 
   proxyHeaders: "xforwarded"
 
+  extraEnvVars:
+    - name: KC_HOSTNAME_BACKCHANNEL_DYNAMIC
+      value: "true"
+
   ingress:
     enabled: true
     ingressClassName: nginx
-    hostname: auth.dietz.dev
+    hostname: "https://auth.dietz.dev"
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt
     extraTls:
@@ -33,7 +37,7 @@ keycloak:
   adminIngress:
     enabled: true
     ingressClassName: nginx
-    hostname: auth-admin.dietz.dev
+    hostname: "https://auth-admin.dietz.dev"
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt
     extraTls:
