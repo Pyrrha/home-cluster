@@ -22,7 +22,7 @@ argo-cd:
   configs:
     cm:
       oidc.config: |
-        name: Keycloak
+        name: SSO
         issuer: https://auth.dietz.dev/realms/dietz
         clientID: argocd
         clientSecret: $oidc.keycloak.clientSecret
