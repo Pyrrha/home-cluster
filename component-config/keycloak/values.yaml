@@ -25,15 +25,15 @@ keycloak:
     hostname: auth.dietz.dev
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt
-    extraHosts:
-      - name: codebusters.auth.dietz.dev
+      nginx.ingress.kubernetes.io/auth-snippet: |
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     extraTls:
       - hosts:
           - auth.dietz.dev
         secretName: keycloak-cert
-      - hosts:
-          - codebusters.auth.dietz.dev
-        secretName: keycloak-codebusters-cert
 
   adminIngress:
     enabled: true
