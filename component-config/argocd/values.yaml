@@ -31,6 +31,7 @@ argo-cd:
     rbac:
       policy.csv: |
         g, ArgoCDAdmins, role:admin
+        g, ArgoCDReadOnly, role:readonly
 
   dex:
     enabled: false
