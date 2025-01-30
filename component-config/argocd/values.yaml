@@ -20,6 +20,7 @@ argo-cd:
           secretName: argocd-cert
 
   configs:
+    admin.enabled: false
     cm:
       oidc.config: |
         name: SSO
