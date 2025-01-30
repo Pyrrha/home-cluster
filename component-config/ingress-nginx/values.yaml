@@ -1,5 +1,6 @@
 ingress-nginx:
   controller:
+    allowSnippetAnnotations: true
     config:
       proxy-buffer-size: "16k"
 
