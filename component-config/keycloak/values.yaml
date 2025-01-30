@@ -31,7 +31,7 @@ keycloak:
         secretName: keycloak-cert
 
   adminIngress:
-    enabled: true
+    enabled: false
     ingressClassName: nginx
     hostname: auth-admin.dietz.dev
     annotations:
