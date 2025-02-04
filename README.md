@@ -112,4 +112,22 @@
   ```sh
   k get secret -n argocd argocd-initial-admin-secret -o yaml | yq '.data.password' | base64 -d
   ```
-
+- Connect to [auth portal](https://auth.dietz.dev) and create a new realm named `dietz
+- Import backup realms 😉
+- Configure Kubernetes to use OIDC provider:
+  - Open `vim /etc/kubernetes/manifests/kube-apiserver.yaml`
+  - Copy the following content:
+    ```yaml
+    - --oidc-issuer-url=https://auth.dietz.dev/realms/dietz
+    - --oidc-client-id=kubernetes
+    - --oidc-groups-claim=groups
+    - --oidc-username-claim=email
+    ```
+- Configure `kubectl` to use OIDC provider:
+  ```sh
+  kubectl oidc-login setup \
+    --oidc-issuer-url=https://auth.dietz.dev/realms/dietz \
+    --oidc-client-id=kubernetes \
+    --oidc-client-secret=<client-secret>
+  ```
+- Follow instructions to configure `kubectl` to use OIDC provider
