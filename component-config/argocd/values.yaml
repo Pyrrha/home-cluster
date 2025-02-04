@@ -30,8 +30,8 @@ argo-cd:
         requestedScopes: ["openid", "profile", "email", "groups"]
     rbac:
       policy.csv: |
-        g, ArgoCDAdmins, role:admin
-        g, ArgoCDReadOnly, role:readonly
+        g, argocd:admin, role:admin
+        g, argocd:read-only, role:readonly
 
   dex:
     enabled: false
