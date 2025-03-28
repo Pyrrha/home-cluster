@@ -87,15 +87,15 @@
     ```
 - Deploy `sealed-secrets`:
   ```sh
-  helm upgrade -n sealed-secrets --create-namespace --install --dependency-update sealed-secrets . -f values.yaml
+  helm upgrade -n sealed-secrets --create-namespace --install --dependency-update sealed-secrets component-config/sealed-secrets -f component-config/sealed-secrets/values.yaml
   ```
 - Generate secrets:
   ```sh
   # ArgoCD
-  kubeseal --controller-namespace sealed-secrets --controller-name sealed-secrets -o yaml -n argocd < my_secret.yaml > templates/github.yaml
+  kubeseal --controller-namespace sealed-secrets --controller-name sealed-secrets -o yaml -n argocd < component-config/argocd/my_secret.yaml > component-config/argocd/templates/github.yaml
 
   # IP
-  kubeseal --controller-namespace sealed-secrets --controller-name sealed-secrets -o yaml -n kube-system < my_secret.yaml > cloudflare-api-key.yaml
+  kubeseal --controller-namespace sealed-secrets --controller-name sealed-secrets -o yaml -n kube-system < component-config/ip/my_secret.yaml > component-config/ip/cloudflare-api-key.yaml
   ```
 - Commit secrets to deploy them with ArgoCD
 - Deploy ArgoCD:
