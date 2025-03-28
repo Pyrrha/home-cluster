@@ -114,12 +114,9 @@
   kubectl apply -f argo-config/applications/app-of-apps.yaml
   ```
 - It will automaticaly create all other applications
-- Retrieve ArgoCD admin password:
-  ```sh
-  kubectl get secret -n argocd argocd-initial-admin-secret -o yaml | yq '.data.password' | base64 -d
-  ```
-- Connect to [auth portal](https://auth.dietz.dev) and create a new realm named `dietz
-- Import backup realms 😉
+- Keycloak should automatically recover from data present in database. Otherwise:
+  - Connect to [auth portal](https://auth-admin.dietz.dev) and create a new realm named `dietz`
+  - Import backup realms 😉
 - Configure Kubernetes to use OIDC provider:
   - Open `vim /etc/kubernetes/manifests/kube-apiserver.yaml`
   - Copy the following content:
