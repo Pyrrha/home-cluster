@@ -134,3 +134,4 @@
     --oidc-client-secret=<client-secret>
   ```
 - Follow instructions to configure `kubectl` to use OIDC provider
+- Finally, for conveniance: `kubectl config set-context oidc@home --cluster kubernetes --user oidc`
