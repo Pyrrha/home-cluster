@@ -92,7 +92,7 @@
 - Generate secrets:
   ```sh
   # ArgoCD
-  kubeseal --controller-namespace sealed-secrets --controller-name sealed-secrets -o yaml -n argocd < component-config/argocd/my_secret.yaml > component-config/argocd/templates/github.yaml
+  kubeseal --controller-namespace sealed-secrets --controller-name sealed-secrets -o yaml -n argocd < component-config/argocd/my_secret.yaml > component-config/argocd/templates/secrets.yaml
 
   # IP
   kubeseal --controller-namespace sealed-secrets --controller-name sealed-secrets -o yaml -n kube-system < component-config/ip/my_secret.yaml > component-config/ip/cloudflare-api-key.yaml
