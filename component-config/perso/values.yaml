@@ -30,7 +30,9 @@ serviceAccount:
 
 podAnnotations: {}
 
-podSecurityContext: {}
+podSecurityContext:
+  runAsNonRoot: true
+  readOnlyRootFilesystem: true
   # fsGroup: 2000
 
 securityContext: {}
