@@ -77,13 +77,13 @@
   - Apply CRDs and operator (ensure using latest version):
     ```sh
     wget https://raw.githubusercontent.com/projectcalico/calico/v3.29.3/manifests/tigera-operator.yaml > component-config/tigera-operator/tigera-operator.yaml
-    k create -f component-config/tigera-operator/tigera-operator.yaml
+    kubectl create -f component-config/tigera-operator/tigera-operator.yaml
     ```
   - Retrieve configuration and adapt the ipPool's CIDR:
     ```sh
     curl https://raw.githubusercontent.com/projectcalico/calico/v3.29.3/manifests/custom-resources.yaml > component-config/calico/custom-resources.yaml
     vim component-config/calico/custom-resources.yaml # set CIDR to the same of kubeadm.yaml file: 10.96.0.0/12
-    k create -f component-config/calico/custom-resources.yaml
+    kubectl create -f component-config/calico/custom-resources.yaml
     ```
 - Deploy `sealed-secrets`:
   ```sh
@@ -96,21 +96,24 @@
 
   # IP
   kubeseal --controller-namespace sealed-secrets --controller-name sealed-secrets -o yaml -n kube-system < component-config/ip/my_secret.yaml > component-config/ip/cloudflare-api-key.yaml
+
+  # Database
+  kubeseal --controller-namespace sealed-secrets --controller-name sealed-secrets -o yaml -n database < component-config/database/my_secret.yaml > component-config/database/templates/database.yaml
   ```
 - Commit secrets to deploy them with ArgoCD
 - Deploy ArgoCD:
   ```sh
-  helm upgrade -n argocd --create-namespace --install --dependency-update argocd . -f values.yaml
+  helm upgrade -n argocd --create-namespace --install --dependency-update argocd component-config/argocd -f component-config/argocd/values.yaml
   ```
 - Join cluster with other nodes
 - Apply app-of-apps.yaml:
   ```sh
-  k apply -f argo-config/applications/app-of-apps.yaml
+  kubectl apply -f argo-config/applications/app-of-apps.yaml
   ```
 - It will automaticaly create all other applications
 - Retrieve ArgoCD admin password:
   ```sh
-  k get secret -n argocd argocd-initial-admin-secret -o yaml | yq '.data.password' | base64 -d
+  kubectl get secret -n argocd argocd-initial-admin-secret -o yaml | yq '.data.password' | base64 -d
   ```
 - Connect to [auth portal](https://auth.dietz.dev) and create a new realm named `dietz
 - Import backup realms 😉
