@@ -99,6 +99,9 @@
 
   # Database
   kubeseal --controller-namespace sealed-secrets --controller-name sealed-secrets -o yaml -n database < component-config/database/my_secret.yaml > component-config/database/templates/database.yaml
+
+  # Keycloak
+  kubeseal --controller-namespace sealed-secrets --controller-name sealed-secrets -o yaml -n keycloak < component-config/keycloak/my_secret.yaml > component-config/keycloak/templates/secrets.yaml
   ```
 - Commit secrets to deploy them with ArgoCD
 - Deploy ArgoCD:
