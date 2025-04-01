@@ -4,4 +4,4 @@ version: 1.0.0
 dependencies:
 - name: keycloak
   repository: oci://registry-1.docker.io/bitnamicharts
-  version: 24.4.13
+  version: 24.4.14
