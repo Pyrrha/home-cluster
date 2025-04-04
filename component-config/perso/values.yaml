@@ -60,11 +60,18 @@ ingress:
       paths:
         - path: /
           pathType: ImplementationSpecific
+    - host: tata.dietz.dev
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+
+
   tls:
    - secretName: dietz-dev
      hosts:
        - dietz.dev
        - tristan.dietz.dev
+       - tata.dietz.dev
 
 resources:
   requests:
