@@ -1,0 +1,6 @@
+dependencies:
+- name: calcom
+  repository: https://pyrrha.github.io/calcom-helm
+  version: 0.8.6
+digest: sha256:14ae2c481f0dadbea3fe14712cf847e1d70438d10cc609a2e511049b27c460ac
+generated: "2025-05-04T18:54:58.40495+02:00"
