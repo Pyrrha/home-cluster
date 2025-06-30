@@ -2,3 +2,9 @@ cert-manager:
   namespace: cert-manager
   crds:
     enabled: true
+  config:
+    featureGates:
+      # Disable the use of Exact PathType in Ingress resources, to work around a bug in ingress-nginx
+      # https://github.com/kubernetes/ingress-nginx/issues/11176
+      # https://cert-manager.io/docs/releases/release-notes/release-notes-1.18/#acme-http01-challenge-paths-now-use-pathtype-exact-in-ingress-routes
+      ACMEHTTP01IngressPathTypeExact: false
