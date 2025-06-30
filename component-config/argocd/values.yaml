@@ -18,6 +18,7 @@ argo-cd:
         - hosts:
             - argocd.dietz.dev
           secretName: argocd-cert
+      pathType: ImplementationSpecific
 
   configs:
     cm:
