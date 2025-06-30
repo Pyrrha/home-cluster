@@ -3,10 +3,8 @@ ingress-nginx:
     config:
       proxy-buffer-size: "16k"
 
-    kind: DaemonSet
-    hostPort:
-      enabled: true
-
     service:
-      enabled: false
-
+      type: NodePort
+      nodePorts:
+        http: 30080
+        https: 30443
