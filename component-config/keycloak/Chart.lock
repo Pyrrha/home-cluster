@@ -1,6 +1,6 @@
 dependencies:
 - name: keycloak
   repository: oci://registry-1.docker.io/bitnamicharts
-  version: 24.7.5
-digest: sha256:fef92becf3053576f82a2b510e2298feb580af48043eb94c012a3035842181be
-generated: "2025-07-02T22:10:29.295046889Z"
+  version: 24.7.6
+digest: sha256:1923e84b640c8765af62c2fd0e356f4f242e785b339a6be84fc84ad0eab3ae9c
+generated: "2025-07-09T23:12:06.871662531Z"
