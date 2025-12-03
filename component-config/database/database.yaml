@@ -5,6 +5,8 @@ metadata:
 spec:
   instances: 1
 
+  enableSuperuserAccess: true
+
   storage:
     storageClass: local-storage
     size: 16Gi
