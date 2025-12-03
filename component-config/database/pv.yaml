@@ -4,7 +4,7 @@ metadata:
   name: database-pv
 spec:
   claimRef:
-    name: cluster-postgres
+    name: cluster-postgres-1
     namespace: database
   capacity:
    storage: 16Gi
