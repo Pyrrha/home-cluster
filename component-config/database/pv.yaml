@@ -4,7 +4,7 @@ metadata:
   name: database-pv
 spec:
   claimRef:
-    name: database-pvc
+    name: cluster-postgres
     namespace: database
   capacity:
    storage: 16Gi
@@ -23,4 +23,3 @@ spec:
           operator: In
           values:
           - srv-master
-
