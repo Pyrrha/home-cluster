@@ -16,3 +16,8 @@ spec:
       login: true
       passwordSecret:
         name: cluster-postgres-calcom
+    - name: zitadel
+      comment: Zitadel Database User
+      login: true
+      passwordSecret:
+        name: cluster-postgres-zitadel

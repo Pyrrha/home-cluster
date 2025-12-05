@@ -7,3 +7,15 @@ spec:
   owner: calcom
   cluster:
     name: cluster-postgres
+
+---
+
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: cluster-postgres-zitadel
+spec:
+  name: zitadel
+  owner: zitadel
+  cluster:
+    name: cluster-postgres
