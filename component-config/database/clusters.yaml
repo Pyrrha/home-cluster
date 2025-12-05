@@ -8,3 +8,11 @@ spec:
   storage:
     storageClass: local-storage
     size: 16Gi
+
+  managed:
+    roles:
+    - name: calcom
+      comment: Calcom Database User
+      login: true
+      passwordSecret:
+        name: cluster-postgres-calcom
