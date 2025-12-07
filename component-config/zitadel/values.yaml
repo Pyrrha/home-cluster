@@ -1,0 +1,13 @@
+zitadel:
+  initJob:
+    enabled: false
+
+  zitadel:
+    masterkeySecretName: zitadel
+    configSecretName: zitadel
+    configSecretKey: config
+  ingress:
+    enabled: true
+  login:
+    ingress:
+      enabled: true
