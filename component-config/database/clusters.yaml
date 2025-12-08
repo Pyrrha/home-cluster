@@ -4,7 +4,7 @@ metadata:
   name: cluster-postgres
 spec:
   instances: 1
-  imageName: image: ghcr.io/cloudnative-pg/postgresql:17.7-202512080807-minimal-trixie@sha256:7e8e6453eab618b0d8c6e536abce4ae5ed1ada3757392b4b40a3722f548253a1
+  imageName: ghcr.io/cloudnative-pg/postgresql:17.7-202512080807-minimal-trixie@sha256:7e8e6453eab618b0d8c6e536abce4ae5ed1ada3757392b4b40a3722f548253a1
 
   storage:
     storageClass: local-storage
