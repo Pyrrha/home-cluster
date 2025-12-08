@@ -22,17 +22,17 @@ argo-cd:
 
   configs:
     cm:
-      admin.enabled: false
-      oidc.config: |
-        name: SSO
-        issuer: https://auth.dietz.dev/realms/dietz
-        clientID: argocd
-        clientSecret: $keycloak:clientSecret
-        requestedScopes: ["openid", "profile", "email", "groups"]
-    rbac:
-      policy.csv: |
-        g, argocd:admin, role:admin
-        g, argocd:read-only, role:readonly
+      admin.enabled: true
+    #   oidc.config: |
+    #     name: SSO
+    #     issuer: https://auth.dietz.dev/realms/dietz
+    #     clientID: argocd
+    #     clientSecret: $keycloak:clientSecret
+    #     requestedScopes: ["openid", "profile", "email", "groups"]
+    # rbac:
+    #   policy.csv: |
+    #     g, argocd:admin, role:admin
+    #     g, argocd:read-only, role:readonly
 
   dex:
     enabled: false
