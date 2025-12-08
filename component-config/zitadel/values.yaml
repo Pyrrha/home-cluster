@@ -8,6 +8,9 @@ zitadel:
   ingress:
     enabled: true
     className: nginx
+    annotations:
+      cert-manager.io/cluster-issuer: "letsencrypt"
+      kubernetes.io/tls-acme: "true"
     hosts:
       - host: sso.dietz.dev
         paths:
@@ -21,6 +24,9 @@ zitadel:
     ingress:
       enabled: true
       className: nginx
+      annotations:
+        cert-manager.io/cluster-issuer: "letsencrypt"
+        kubernetes.io/tls-acme: "true"
       hosts:
         - host: sso.dietz.dev
           paths:
