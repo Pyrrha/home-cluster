@@ -7,6 +7,26 @@ zitadel:
     configSecretKey: config
   ingress:
     enabled: true
+    className: nginx
+    hosts:
+      - host: sso.dietz.dev
+        paths:
+          - path: /ui/v2/login
+            pathType: Prefix
+    tls:
+      - secretName: sso-dietz-dev
+        hosts:
+          - sso.dietz.dev
   login:
     ingress:
       enabled: true
+      className: nginx
+      hosts:
+        - host: sso.dietz.dev
+          paths:
+            - path: /ui/v2/login
+              pathType: Prefix
+      tls:
+        - secretName: sso-dietz-dev
+          hosts:
+            - sso.dietz.dev
