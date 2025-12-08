@@ -14,7 +14,7 @@ zitadel:
     hosts:
       - host: sso.dietz.dev
         paths:
-          - path: /ui/v2/login
+          - path: /
             pathType: Prefix
     tls:
       - secretName: sso-dietz-dev
