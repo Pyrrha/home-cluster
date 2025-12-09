@@ -1,10 +1,12 @@
 zitadel:
-  initJob:
-    command: zitadel
   zitadel:
     masterkeySecretName: zitadel
     configSecretName: zitadel
     configSecretKey: config
+    configmapConfig:
+      ExternalDomain: sso.dietz.dev
+      ExternalPort: 443
+
   ingress:
     enabled: true
     className: nginx
