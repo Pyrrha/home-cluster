@@ -1,4 +1,6 @@
 zitadel:
+  initJob:
+    command: zitadel
   zitadel:
     masterkeySecretName: zitadel
     configSecretName: zitadel
