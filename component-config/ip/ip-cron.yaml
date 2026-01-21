@@ -18,6 +18,8 @@ spec:
                 - -c
                 - |
                   curl --fail-with-body -s -X PATCH https://api.cloudflare.com/client/v4/zones/cb46dac35ba61a2aef819aec955f9603/dns_records/60a3b6c803263f36a6f83284045e2a8b -H "Authorization: Bearer $CLOUDFLARE_API_KEY" -H "Content-Type: application/json" -d '{"content": "'$(curl -s https://ipv4.wtfismyip.com/text)'"}'
+                  curl --fail-with-body -s -X PATCH https://api.cloudflare.com/client/v4/zones/cb46dac35ba61a2aef819aec955f9603/dns_records/9fde8b97aa73701cf82ab92f86ae187c -H "Authorization: Bearer $CLOUDFLARE_API_KEY" -H "Content-Type: application/json" -d '{"content": "'$(curl -s https://ipv4.wtfismyip.com/text)'"}'
+                  
               env:
                 - name: CLOUDFLARE_API_KEY
                   valueFrom:
