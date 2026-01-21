@@ -17,9 +17,12 @@ spec:
                 - /bin/sh
                 - -c
                 - |
-                  curl --fail-with-body -s -X PATCH https://api.cloudflare.com/client/v4/zones/cb46dac35ba61a2aef819aec955f9603/dns_records/876614edea1d50a0acba41538f3a5c5a -H "Authorization: Bearer $CLOUDFLARE_API_KEY" -H "Content-Type: application/json" -d '{"content": "'$(curl -s https://ipv4.wtfismyip.com/text)'"}'
-                  curl --fail-with-body -s -X PATCH https://api.cloudflare.com/client/v4/zones/cb46dac35ba61a2aef819aec955f9603/dns_records/9fde8b97aa73701cf82ab92f86ae187c -H "Authorization: Bearer $CLOUDFLARE_API_KEY" -H "Content-Type: application/json" -d '{"content": "'$(curl -s https://ipv4.wtfismyip.com/text)'"}'
-                  
+                  set +e
+                  EXIT_CODE=0
+                  curl --fail-with-body -s -X PATCH https://api.cloudflare.com/client/v4/zones/cb46dac35ba61a2aef819aec955f9603/dns_records/876614edea1d50a0acba41538f3a5c5a -H "Authorization: Bearer $CLOUDFLARE_API_KEY" -H "Content-Type: application/json" -d '{"content": "'$(curl -s https://ipv4.wtfismyip.com/text)'"}' || EXIT_CODE=$?
+                  echo ""
+                  curl --fail-with-body -s -X PATCH https://api.cloudflare.com/client/v4/zones/cb46dac35ba61a2aef819aec955f9603/dns_records/9fde8b97aa73701cf82ab92f86ae187c -H "Authorization: Bearer $CLOUDFLARE_API_KEY" -H "Content-Type: application/json" -d '{"content": "'$(curl -s https://ipv4.wtfismyip.com/text)'"}' || EXIT_CODE=$?
+                  exit $EXIT_CODE
               env:
                 - name: CLOUDFLARE_API_KEY
                   valueFrom:
