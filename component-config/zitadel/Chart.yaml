@@ -1,9 +1,0 @@
-apiVersion: v2
-name: zitadel
-description: Auth portal
-type: application
-version: 0.0.1
-dependencies:
-  - name: zitadel
-    repository: https://charts.zitadel.com
-    version: 9.17.1
