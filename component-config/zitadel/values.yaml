@@ -21,12 +21,13 @@ zitadel:
               Key: "" # ZITADEL_DATABASE_POSTGRES_USER_SSL_KEY
       FirstInstance:
         Org:
-          # Defines the internal machine user required by the ZITADEL Login UI.
-          # This user communicates with the main ZITADEL API to handle login flows.
-          # It is a specialized, internal-use-only account and is not intended for
-          # general administrative use. A PAT is generated and stored in a
-          # Kubernetes secret named 'login-client'.
-          LoginClient: {}
+          Human:
+            UserName: "admin"
+            FirstName: "Zitadel"
+            LastName: "Admin"
+            Email: "admin@example.com"
+            Password: "YourSecurePassword123!"
+            PasswordChangeRequired: true
 
   ingress:
     # If true, creates an Ingress resource for the ZITADEL service.
