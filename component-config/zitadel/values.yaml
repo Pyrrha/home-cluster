@@ -1,6 +1,35 @@
 zitadel:
   zitadel:
     masterkey: kJba3qRAbwW2A4jBnsdPb9qEmhUuUvha
+    configmapConfig:
+      Database:
+        # Postgres is the default database of ZITADEL
+        postgres:
+          Host: cluster-postgres-rw.database.svc.cluster.local # ZITADEL_DATABASE_POSTGRES_HOST
+          Port: 5432 # ZITADEL_DATABASE_POSTGRES_PORT
+          Database: zitadel # ZITADEL_DATABASE_POSTGRES_DATABASE
+          User:
+            Username: zitadel # ZITADEL_DATABASE_POSTGRES_USER_USERNAME
+            Password: "voqgux-bofja7-vevQah" # ZITADEL_DATABASE_POSTGRES_USER_PASSWORD
+            SSL:
+              Mode: disable # ZITADEL_DATABASE_POSTGRES_USER_SSL_MODE
+              RootCert: "" # ZITADEL_DATABASE_POSTGRES_USER_SSL_ROOTCERT
+              Cert: "" # ZITADEL_DATABASE_POSTGRES_USER_SSL_CERT
+              Key: "" # ZITADEL_DATABASE_POSTGRES_USER_SSL_KEY
+          Admin:
+            # By default, ExistingDatabase is not specified in the connection string
+            # If the connection resolves to a database that is not existing in your system, configure an existing one here
+            # It is used in zitadel init to connect to postgres and create a dedicated database for ZITADEL.
+            ExistingDatabase: zitadel # ZITADEL_DATABASE_POSTGRES_ADMIN_EXISTINGDATABASE
+            Username: zitadel # ZITADEL_DATABASE_POSTGRES_ADMIN_USERNAME
+            Password: voqgux-bofja7-vevQah # ZITADEL_DATABASE_POSTGRES_ADMIN_PASSWORD
+            SSL:
+              Mode: disable # ZITADEL_DATABASE_POSTGRES_ADMIN_SSL_MODE
+              RootCert: "" # ZITADEL_DATABASE_POSTGRES_ADMIN_SSL_ROOTCERT
+              Cert: "" # ZITADEL_DATABASE_POSTGRES_ADMIN_SSL_CERT
+              Key: "" # ZITADEL_DATABASE_POSTGRES_ADMIN_SSL_KEY
+
+
 
   ingress:
     # If true, creates an Ingress resource for the ZITADEL service.
