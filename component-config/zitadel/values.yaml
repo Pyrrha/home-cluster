@@ -21,6 +21,30 @@ zitadel:
               Key: "" # ZITADEL_DATABASE_POSTGRES_USER_SSL_KEY
       FirstInstance:
         Skip: true
+        Org:
+          Machine:
+            Machine:
+              Username: 'iam-admin'
+              Name: 'Automatically Initialized IAM Admin'
+            MachineKey:
+              ExpirationDate: '2029-01-01T00:00:00Z'
+              Type: 1
+            # If this Pat object is present, a PAT will also be created.
+            Pat:
+              ExpirationDate: '2029-01-01T00:00:00Z'
+
+          # Defines the internal machine user required by the ZITADEL Login UI.
+          # This user communicates with the main ZITADEL API to handle login flows.
+          # It is a specialized, internal-use-only account and is not intended for
+          # general administrative use. A PAT is generated and stored in a
+          # Kubernetes secret named 'login-client'.
+          LoginClient:
+            Machine:
+              Username: 'login-client'
+              Name: 'Automatically Initialized IAM Login Client'
+            # The expiration date for the Login UI's Personal Access Token (PAT).
+            Pat:
+              ExpirationDate: '2029-01-01T00:00:00Z'
 
   ingress:
     # If true, creates an Ingress resource for the ZITADEL service.
