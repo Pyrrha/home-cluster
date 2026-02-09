@@ -19,6 +19,15 @@ zitadel:
               RootCert: "" # ZITADEL_DATABASE_POSTGRES_USER_SSL_ROOTCERT
               Cert: "" # ZITADEL_DATABASE_POSTGRES_USER_SSL_CERT
               Key: "" # ZITADEL_DATABASE_POSTGRES_USER_SSL_KEY
+      FirstInstance:
+        Org:
+          Human:
+            UserName: "admin"
+            FirstName: "Zitadel"
+            LastName: "Admin"
+            Email: "admin@example.com"
+            Password: "YourSecurePassword123!"
+            PasswordChangeRequired: true
 
   ingress:
     # If true, creates an Ingress resource for the ZITADEL service.
