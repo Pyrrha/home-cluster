@@ -4,7 +4,7 @@ zitadel:
     configmapConfig:
       Database:
         # Postgres is the default database of ZITADEL
-        postgres:
+        Postgres:
           Host: cluster-postgres-rw.database.svc.cluster.local # ZITADEL_DATABASE_POSTGRES_HOST
           Port: 5432 # ZITADEL_DATABASE_POSTGRES_PORT
           Database: zitadel # ZITADEL_DATABASE_POSTGRES_DATABASE
