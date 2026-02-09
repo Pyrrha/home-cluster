@@ -28,6 +28,7 @@ zitadel:
             Email: "admin@example.com"
             Password: "YourSecurePassword123!"
             PasswordChangeRequired: true
+          LoginClient: {}
 
   ingress:
     # If true, creates an Ingress resource for the ZITADEL service.
