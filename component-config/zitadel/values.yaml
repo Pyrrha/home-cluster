@@ -20,21 +20,7 @@ zitadel:
               Cert: "" # ZITADEL_DATABASE_POSTGRES_USER_SSL_CERT
               Key: "" # ZITADEL_DATABASE_POSTGRES_USER_SSL_KEY
       FirstInstance:
-        Org:
-          Human:
-            UserName: "admin"
-            FirstName: "Zitadel"
-            LastName: "Admin"
-            Email: "admin@example.com"
-            Password: "YourSecurePassword123!"
-            PasswordChangeRequired: true
-          LoginClient:
-            Machine:
-              Username: 'login-client'
-              Name: 'Automatically Initialized IAM Login Client'
-            # The expiration date for the Login UI's Personal Access Token (PAT).
-            Pat:
-              ExpirationDate: '2029-01-01T00:00:00Z'
+        Skip: true
 
   ingress:
     # If true, creates an Ingress resource for the ZITADEL service.
