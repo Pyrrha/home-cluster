@@ -1,5 +1,5 @@
 zitadel:
-  zitadel
+  zitadel:
     masterkey: kJba3qRAbwW2A4jBnsdPb9qEmhUuUvha
 
   ingress:
@@ -17,13 +17,16 @@ zitadel:
       nginx.ingress.kubernetes.io/backend-protocol: "GRPC"
     # A list of host rules for the Ingress. Each host can have multiple paths.
     hosts:
-      - paths:
+      - host: sso.dietz.dev
+        paths:
           - path: /
             pathType: Prefix
     # TLS configuration for the Ingress. This allows you to secure the endpoint
     # with HTTPS by referencing a secret that contains the TLS certificate and key.
     tls:
-      - zitadel-cert
+      - secretName: zitadel-cert
+        hosts:
+          - sso.dietz.dev
 
   login:
     ingress:
@@ -39,10 +42,13 @@ zitadel:
       annotations: {}
       # A list of host rules for the Ingress. The default path targets the login UI.
       hosts:
-        - paths:
+        - host: sso.dietz.dev
+          paths:
             - path: /ui/v2/login
               pathType: Prefix
       # TLS configuration for the Ingress. Secure the login UI with HTTPS by
       # referencing a secret containing the TLS certificate and key.
       tls:
-        - zitadel-cert
+        - secretName: zitadel-cert
+          hosts:
+            - sso.dietz.dev
